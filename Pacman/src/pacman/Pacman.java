@@ -25,18 +25,23 @@ public Pacman() {
     spriteCache = new SpiritCache();
     JFrame okno = new JFrame(".: Pacman :.");
     JPanel panel = (JPanel)okno.getContentPane();
-    setBounds(0,0,stage.SZEROKOSC,stage.WYSOKOSC);
+    
     panel.setPreferredSize(new Dimension(stage.SZEROKOSC,stage.WYSOKOSC));
     panel.setLayout(null);
     panel.add(this);
     okno.setBounds(0,0,stage.SZEROKOSC,stage.WYSOKOSC);
-    setBackground(Color.BLACK);
+    panel.setBackground(Color.BLACK);
     okno.setVisible(true);
     okno.addWindowListener( new WindowAdapter() {
         public void windowClosing(WindowEvent e) {
             System.exit(0);
     }
     });
+     okno.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+               System.out.println("this");
+               
+            }});
     
     okno.setResizable(true);
     createBufferStrategy(2);
@@ -93,8 +98,10 @@ public Pacman() {
     for (int i = 0; i < actors.size(); i++) {
     Actor m = (Actor)actors.get(i);
     m.act();
+    setBounds(0,0,stage.SZEROKOSC-100*i,stage.WYSOKOSC);
     }
     p.act();
+    
     }
     
     public SpiritCache getSpriteCache() {
